@@ -2,23 +2,13 @@ node {
     // Define la variable de entorno para Maven
     def mavenPath = 'C:\\Maven\\apache-maven-3.9.8\\bin\\mvn.cmd'
     def targetDir = 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\app-web2-backend\\target'
-    def gitRepo = 'https://github.com/Marlonds95/app-web2-backend.git'
-    def workspaceDir = 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\app-web2-backend'
 
     try {
-        stage('Clonación del Repositorio') {
-            // Clona el repositorio en el directorio de trabajo
-            bat "git clone ${gitRepo} ${workspaceDir}"
-        }
-
         stage('Revisión') {
-            // Mueve al directorio del proyecto clonado
-            dir(workspaceDir) {
-                // Checkout del código fuente desde el repositorio bifurcado
-                checkout([$class: 'GitSCM', 
-                          branches: [[name: 'master']],
-                          userRemoteConfigs: [[url: gitRepo]]])
-            }
+            // Checkout del código fuente desde el repositorio bifurcado
+            checkout([$class: 'GitSCM', 
+                      branches: [[name: 'master']],
+                      userRemoteConfigs: [[url: 'https://github.com/Marlonds95/app-web2-backend.git']]])
         }
 
         stage('Instalación de Maven') {
