@@ -1,7 +1,6 @@
 node {
     // Define las variables de entorno
-    def pythonPath = 'C:\\Users\\EQUIPO\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
-    def emailScriptPath = 'C:\\ProgramData\\Jenkins\\.jenkins\\scripts\\send_email.py'
+    
     def mavenPath = 'C:\\Maven\\apache-maven-3.9.8\\bin\\mvn.cmd'
 
     try {
@@ -43,9 +42,7 @@ node {
         throw e
     } finally {
         if (currentBuild.result == 'SUCCESS') {
-            stage('Enviar correo') {
-                // Ejecuta el script de Python para enviar un correo electrónico solo si el build es exitoso
-                bat "${pythonPath} ${emailScriptPath}"
+            
             }
         }
     }
