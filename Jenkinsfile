@@ -2,6 +2,7 @@ node {
     // Define las variables de entorno
     def pythonPath = 'C:\\Users\\EQUIPO\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
     def emailScriptPath = 'C:\\ProgramData\\Jenkins\\.jenkins\\scripts\\send_email.py'
+    def mavenPath = 'C:\\Maven\\apache-maven-3.9.8\\bin\\mvn.cmd'
 
     try {
         stage('Revisión') {
@@ -13,17 +14,17 @@ node {
 
         stage('Instalación de Maven') {
             // Verifica la versión de Maven
-            bat 'mvn --version'
+            bat "${mavenPath} --version"
         }
 
         stage('Instalación de dependencias') {
             // Instala las dependencias del proyecto usando Maven
-            bat 'mvn install'
+            bat "${mavenPath} install"
         }
 
         stage('Construir') {
             // Construye el proyecto usando Maven
-            bat 'mvn package'
+            bat "${mavenPath} package"
         }
 
         stage('Limpiar') {
