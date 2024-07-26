@@ -12,7 +12,7 @@ node {
         }
 
         stage('Instalación de Maven') {
-            // Instala Maven si no está instalado en el agente
+            // Verifica la versión de Maven
             bat 'mvn --version'
         }
 
@@ -41,9 +41,11 @@ node {
         currentBuild.result = 'FAILURE'
         throw e
     } finally {
-        stage('Enviar correo') {
-            // Ejecuta el script de Python para enviar un correo electrónico
-            bat "${pythonPath} ${emailScriptPath}"
+        if (currentBuild.result == 'SUCCESS') {
+            stage('Enviar correo') {
+                // Ejecuta el script de Python para enviar un correo electrónico solo si el build es exitoso
+                bat "${pythonPath} ${emailScriptPath}"
+            }
         }
     }
 }
